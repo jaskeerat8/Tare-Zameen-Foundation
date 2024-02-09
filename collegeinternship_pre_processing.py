@@ -1,4 +1,5 @@
 #Importing Libraries
+import pytz
 import pandas as pd
 import s3fs, boto3, json, time
 from datetime import datetime, timedelta, date
@@ -6,10 +7,10 @@ from datetime import datetime, timedelta, date
 
 def lambda_handler(event, context):
     
-    print("Running on Day:", str(datetime.now().strftime("%d-%m-%Y")))
-    day = (datetime.now()-timedelta(days = 0)).strftime("%d-%m-%Y")
+    print("Running on Day:", str(datetime.now(pytz.timezone("Asia/Calcutta")).strftime("%d-%m-%Y")))
+    day = (datetime.now(pytz.timezone("Asia/Calcutta"))-timedelta(days = 0)).strftime("%d-%m-%Y")
     print("Sending for Day:", str(day))
-
+    
     
     boto3_session = boto3.Session(region_name = "us-east-1")
     s3 = boto3_session.resource("s3")
